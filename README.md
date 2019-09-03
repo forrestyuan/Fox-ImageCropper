@@ -1,13 +1,13 @@
 # 🚀 Fox-ImageCropper
 
-> ImageCropper Tool, basci image processor base on canvas  
-> 基于Cavnas的图片裁切工具，基础图片处理工具
+ImageCropper Tool, basci image processor base on canvas    
+基于Cavnas的图片裁切工具，基础图片处理工具  
+[预览地址（功能不完善，持续更新中····）](https://forrestyuan.github.io/Fox-ImageCropper/dist)   
 
-> **Tips 1:** 还处于开发流程中，功能暂时不完善，没有部署到线上， 你可以暂时 `git clone` 到本地运行
-> **Tips 2:** 仓库中的dist文件为打包后的代码，clone后请重新打包
->**Tips 3:** 你看到的或者使用到的没起作用的功能就是没实现的功能！
-> [预览地址（功能不完善，持续更新中····）](https://forrestyuan.github.io/Fox-ImageCropper/dist) 
->
+> **Tips 1:** 还处于开发流程中，功能暂时不完善，没有部署到线上， 你可以暂时 `git clone` 到本地运行   
+> **Tips 2:** 仓库中的dist文件为打包后的代码，clone后请重新打包   
+> **Tips 3:** 你看到的或者使用到的没起作用的功能就是没实现的功能！   
+> **Tips 4:** 暂不持支手机端，后期考虑兼容   
 > 如果你喜欢，觉得有一点儿价值，不妨给个 **💗Star** 或者 **🔗Fork**到你的仓库一起完善，发现代码上有bug或需要完善的，想你提个**✍Issue**一起探讨完善，能 **🙋PR** 一下我就更😘你啦！
 
 ## 🚴运行：
