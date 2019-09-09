@@ -31,7 +31,7 @@ class Canvas{
       this.cropBox.style.left= `0px`;
       this.cropBox.style.top= `0px`;
       this.canvasParentBox.style.cssText=`width:${manualReset.width || this.getWinWidth()}px;height:${manualReset.height || 500}px`;
-      this.canvas.width = this.getWinWidth();
+      this.canvas.width = manualReset.width || this.getWinWidth();
       this.canvas.height = manualReset.height || 500;
     }else{
       this.canvasParentBoxStyle = window.getComputedStyle(this.canvasParentBox);
@@ -75,7 +75,7 @@ class Canvas{
     this.ctx.font = "20px serif";
     this.ctx.fillText("https://github.com/forrestyuan", this.canvas.width / 2 - 60, this.canvas.height / 2 + 60 );
   }
-  //更新裁切框宽高
+  //显示裁切框宽高
   updateCropWH(){
     if(this.config.showCropH){
       this.config.showCropH.innerHTML = this.cropBoxH;
