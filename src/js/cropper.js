@@ -5,33 +5,44 @@ class Canvas{
   //构造函数
   constructor(config={canvas:null,canvasParentBox:null, cropBox: null}){
     if(!config.canvas){console.error("缺少Canvas配置参数");return false;}
-    this.canvasParentBox = config.canvasParentBox;
-    this.cropBox = config.cropBox;
-    this.canvas = config.canvas;
-    this.ctx = this.canvas.getContext('2d');
-    this.historyDrawStack = [];
+    this.config = config;
+    this.canvasParentBox = config.canvasParentBox; //画布父容器
+    this.cropBox = config.cropBox;    //裁切器容器
+    this.canvas = config.canvas;    //画布
+    this.cropBtn = config.cropBtn;  //执行裁切的按钮
+    this.clearBtn = config.clearBtn; //清空画布内容
+    this.saveJPGBtn = config.saveJPGBtn; //保存画布内容
+    this.savePNGBtn = config.savePNGBtn; //保存画布内容
+    this.ctx = this.canvas.getContext('2d'); //画布上下文
+    this.historyDrawStack = [];     //用于resize来重选染画布内容，防止变空。
     //设置参数
     this.setBasicData();
     this.sayHello();
   };
   
-  //canvas getter
-  getCanvas() {
-    return {canvas: this.canvas, ctx: this.ctx}
-  };
-  //canvas setter
-  setCanvas(canvas) {
-    this.canvas = canvas;
-    this.ctx = this.canvas.getContext("2d");
-    return { canvas: this.canvas, ctx: this.ctx };
-  };
-
+  //设置背景填充色
+  setfillColor(clr="#ffffff",width = this.canvas.width, height = this.canvas.height){
+    this.ctx.fillStyle = clr;
+    this.ctx.fillRect(0, 0, width, height);
+  }
   //设置基础参数
-  setBasicData(canvasW, canvasH){
-    this.canvasParentBoxStyle = window.getComputedStyle(this.canvasParentBox);
-    this.canvas.width = canvasW || window.innerWidth;
-    this.canvas.height =this.canvas.height <= 500 ? 500 :  parseInt(this.canvasParentBoxStyle.height) ;
+  setBasicData(manualReset = null){
+    if(manualReset){
+      this.cropBox.style.left= `0px`;
+      this.cropBox.style.top= `0px`;
+      this.canvasParentBox.style.cssText=`width:${manualReset.width || this.getWinWidth()}px;height:${manualReset.height || 500}px`;
+      this.canvas.width = this.getWinWidth();
+      this.canvas.height = manualReset.height || 500;
+    }else{
+      this.canvasParentBoxStyle = window.getComputedStyle(this.canvasParentBox);
+      this.canvas.width = this.getWinWidth();
+      this.canvas.height =this.canvas.height <= 500 ? 500 :  parseInt(this.canvasParentBoxStyle.height) ;
+    }
     this.freshCropBoxWHTL();
+  }
+  //获取window innerWidth
+  getWinWidth(offsetWidth = 45){
+    return (parseInt(window.innerWidth) - offsetWidth)
   }
   //刷新并返回裁切器的宽高
   freshCropBoxWHTL(){
@@ -63,6 +74,15 @@ class Canvas{
     this.ctx.beginPath();
     this.ctx.font = "20px serif";
     this.ctx.fillText("https://github.com/forrestyuan", this.canvas.width / 2 - 60, this.canvas.height / 2 + 60 );
+  }
+  //更新裁切框宽高
+  updateCropWH(){
+    if(this.config.showCropH){
+      this.config.showCropH.innerHTML = this.cropBoxH;
+    }
+    if(this.config.showCropW){
+      this.config.showCropW.innerHTML = this.cropBoxW;
+    }
   }
 }
 
@@ -124,6 +144,7 @@ let cropperMousedownResizeHandler = (e, canvasObj) =>{
     }
     resizePlugin.setBoxWH(canvasObj.canvas,canvasObj.cropBox,res.width, res.height, res.left, res.top);
     preMouse = getMouseXY(ev);
+    canvasObj.updateCropWH();
   });
   bindEvent(window,'mouseup',()=>unbindEvent(window,'mousemove',cropBoxMouseMoveHandler));
 }
@@ -151,8 +172,8 @@ let cropperMouseDownMoveHandler = (e, canvasObj) =>{
     left += crMouseX;
     let res = resizePlugin.judgeIsRangeOut(canvasObj.cropBox, canvasObj.canvasParentBox);
     if(res.isOutRange.top){top = 0;}
-    if(res.isOutRange.right){left = canvasObj.canvasW - canvasObj.cropBoxW;}
-    if(res.isOutRange.bottom){top = canvasObj.cavnasH - canvasObj.cropBoxH;}
+    if(res.isOutRange.right){left = canvasObj.canvas.width - canvasObj.cropBoxW;}
+    if(res.isOutRange.bottom){top = canvasObj.canvas.height - canvasObj.cropBoxH;}
     if(res.isOutRange.left){left = 0;}
     canvasObj.cropBox.style.cssText =`left:${left}px;top:${top}px;width:${canvasObj.cropBoxW}px;height:${canvasObj.cropBoxH}px;`;
     preMouse = curMouse;
@@ -174,7 +195,38 @@ let resizeWindowHandler = (e,canvasObj)=>{
   canvasObj.saveDrawStatus();
   canvasObj.setBasicData();
   canvasObj.restoreDarwStatus();
+  
 }
+
+// 清空画布
+let clearCanvasHandler = (e, canvasObj) => {
+  if(!confirm("是否清空画布")){
+    return;
+  }
+  canvasObj.ctx.clearRect(0, 0, canvasObj.canvas.width, canvasObj.canvas.height);
+  canvasObj.setBasicData({width:false,height:false});
+  canvasObj.sayHello();
+}
+//裁切动作
+let cropCanvasHandler = (e, canvasObj)=>{
+  if(!confirm("是否裁切画布")){
+    return;
+  }
+  let cropParam =  canvasObj.freshCropBoxWHTL();
+  let myImageData = canvasObj.ctx.getImageData(cropParam.left, cropParam.top,cropParam.W, cropParam.H);
+  canvasObj.setBasicData({width:cropParam.W, height:cropParam.H});
+  canvasObj.ctx.putImageData(myImageData, 0, 0);
+
+  let PNGURL = canvasObj.canvas.toDataURL('image/png');
+  canvasObj.saveDrawStatus();
+  canvasObj.setfillColor();
+  canvasObj.restoreDarwStatus();
+  let JPGURL = canvasObj.canvas.toDataURL('image/jpeg',1);
+  canvasObj.saveJPGBtn.href=JPGURL;
+  canvasObj.savePNGBtn.href=PNGURL;
+}
+
+
 //程序运行入口方法
 let cropperRun = (paramObj)=>{
   let canvasObj = new Canvas(paramObj);
@@ -182,6 +234,9 @@ let cropperRun = (paramObj)=>{
   bindEvent(canvasObj.cropBox, "mousedown", e=>cropperMousedownResizeHandler(e, canvasObj));
   bindEvent(canvasObj.cropBox, "mousedown", e=>cropperMouseDownMoveHandler(e, canvasObj));
   bindEvent(window,'resize',e=>resizeWindowHandler(e, canvasObj));
+  bindEvent(canvasObj.clearBtn, "click", e=>clearCanvasHandler(e, canvasObj));
+  bindEvent(canvasObj.cropBtn, 'click', e=>cropCanvasHandler(e, canvasObj));
+  canvasObj.updateCropWH();
 }
 
 export default cropperRun;

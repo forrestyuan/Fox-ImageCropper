@@ -27,17 +27,22 @@ let buildImage = (imgList = [], position = getEle("body"), imgOption = {width:'a
 /**
  * @description 将图片绘制在画布上
  * @param {String | Object} canvas 画布节点的id或者节点对象
+ * @param {Object} canvasPtBox 画布父节点
  * @param {String} imgURL 图像的URL
  */
-let setImgToCanvas = (canvas, imgURL)=>{
+let setImgToCanvas = (canvas, canvasPtBox,cropBox,imgURL)=>{
   canvas = typeof canvas == 'string'? getEle(canvasId): canvas;
   let ctx = canvas.getContext("2d");
   ctx.clearRect(0,0,canvas.width,canvas.height);
   var img = new Image();
   img.onload =()=>{
+    canvas.width = parseInt(window.innerWidth)- 20;
+    canvas.height = 500;
     canvas.width = img.naturalWidth > canvas.width ? img.naturalWidth : canvas.width;
     canvas.height = img.naturalHeight > canvas.height ? img.naturalHeight : canvas.height;
-    ctx.drawImage(img,0, 0);
+    canvasPtBox.style.cssText = 'width:"";height:"";';
+    cropBox.style.cssText = 'left:10px;top:10px;width:50px;height:50px;'
+    ctx.drawImage(img,10, 10);
   }
   img.src = imgURL;
 }

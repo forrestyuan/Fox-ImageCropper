@@ -1,8 +1,8 @@
 ::-webkit-scrollbar{width:8px;height:8px;}
 ::-webkit-scrollbar-thumb{background-color:dimgrey;border-radius: 15px;}
-.cropper_box{min-height:500px;padding:10px;background-color: #fff;overflow: auto;margin-top: 15px;}
-.crop_wrapper{position: relative;display: inline-block;background-color:#fff;}
-.cropBox {position: absolute;left:10px;top:10px;width:100px;height:100px;border: solid 2px #ccc;margin: 0 auto;cursor: move;}
+.cropper_box{display:inline-block;max-width:100%;padding:10px;background-color:dodgerblue;overflow: auto;margin-top: 15px;box-sizing: border-box}
+.crop_wrapper{position: relative;display: inline-block;background-color:#fff;box-sizing: border-box}
+.cropBox {position: absolute;left:10px;top:10px;width:100px;height:100px;border: solid 2px #ccc;margin: 0 auto;cursor: move;box-shadow: 0 0 0 6000px rgba(0,0,0,0.4)}
 .cropBox .crop_dot {position: absolute;width: 4px;height: 4px;background-color: red;}
 .cropBox .crop_dot1 {left: -4px;top: -4px;width:10px;height: 10px;border-radius: 100%;cursor: nw-resize}
 .cropBox .crop_dot2 {width: calc(100% - 10px);top: -2px;right: 5px;border-radius: 0;cursor: n-resize;}
@@ -12,4 +12,4 @@
 .cropBox .crop_dot6 {width: calc(100% - 10px);bottom: -2px;right: 5px;border-radius: 0;cursor: n-resize;}
 .cropBox .crop_dot7 {left: -4px;bottom: -4px;width:10px;height: 10px;border-radius: 100%;cursor: nesw-resize;}
 .cropBox .crop_dot8 {height: calc(100% - 10px);left: -2px;bottom: 5px;border-radius: 0;cursor: w-resize;}
-#canvas {position: relative;background-color: transparent;vertical-align: middle;}
+#canvas {position: relative;vertical-align: middle;}

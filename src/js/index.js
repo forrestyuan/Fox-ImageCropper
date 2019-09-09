@@ -4,7 +4,7 @@ import {getEle,bindEvent} from './util';
 import cropperRun from './cropper'
 
 // file loading handler
-let fileLoadHandler = function(imgList = [], canvas, placeImgPos = null){
+let fileLoadHandler = function(imgList = [], canvas, canvasPtBox, cropBox, placeImgPos = null){
   for(let i = 0; i < imgList.length; i++){
     let fileReader = new FileReader();
     let fileItem = imgList.item(i);
@@ -16,7 +16,7 @@ let fileLoadHandler = function(imgList = [], canvas, placeImgPos = null){
     let trigger = ev.target || ev.srcElement;
     if(/cropBtn/.test(trigger.getAttribute("class"))){
         var imgURL = trigger.getAttribute("data-src");
-        setImgToCanvas(canvas, imgURL);
+        setImgToCanvas(canvas,canvasPtBox, cropBox,imgURL);
     }
   })
 }
@@ -26,14 +26,18 @@ window.onload =  function(){
   let paramObj = {
     canvas: getEle("#canvas"),
     canvasParentBox:getEle(".crop_wrapper"),
-    cropBox: getEle(".cropBox")
+    cropBox: getEle(".cropBox"),
+    cropBtn: getEle("#cropBtn"),
+    clearBtn: getEle("#clearBtn"),
+    saveJPGBtn: getEle("#saveJPGBtn"),
+    savePNGBtn: getEle("#savePNGBtn"),
+    bgColorBtn: getEle("#bgColor"),
+    showCropW: getEle("#showCropW"),
+    showCropH: getEle("#showCropH")
   }
   cropperRun(paramObj);
-
-  
   var fileEle = getEle("#imageFile");
-  var previewImgBox= getEle("#previewImgBox");
   fileEle.onchange = function(){
-    fileLoadHandler(fileEle.files, paramObj.canvas, previewImgBox);
+    fileLoadHandler(fileEle.files, paramObj.canvas, paramObj.canvasParentBox,paramObj.cropBox,getEle("#previewImgBox"));
   }
 }

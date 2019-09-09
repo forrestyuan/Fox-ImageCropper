@@ -1,10 +1,11 @@
 html,body{background-color: #ccc;}
+a{text-decoration: none;}
 .none{display: none;}
 .float-right{float:right;}
 .header h1{background: dodgerblue;color: #fff;text-align: center;padding: 15px;margin:0;}
 
 .controlBar{padding:15px;border:solid 3px dodgerblue;border-top: none;}
-.controlBar .btn{position: relative;display: inline-block;vertical-align: middle;margin:0 10px;text-align: center;height:30px; font-size: 14px;line-height: 30px; color:#fff;padding:3px 10px; border-radius: 3px;cursor: pointer;}
+.controlBar .btn{position: relative;display: inline-block;vertical-align: middle;margin:0 10px;text-align: center;height:30px; font-size: 14px;line-height: 25px; color:#fff;padding:3px 10px; border-radius: 3px;cursor: pointer;box-sizing: border-box;}
 .controlBar .primary-btn{background-color: dodgerblue;}
 .controlBar .primary-btn:hover{background-color:deepskyblue;}
 .controlBar .danger-btn{background-color:crimson;}
@@ -13,4 +14,9 @@ html,body{background-color: #ccc;}
 .controlBar .success-btn:hover{background-color:lightgreen;}
 .controlBar .normal-btn{background-color: #555;}
 .controlBar .normal-btn:hover{background-color:slategray;}
+
+.downloadBtn{position: relative;display: inline-block;width:100px;padding:0;}
+.downLoadType{display:none;position: absolute;left: 0;top:30px;padding:0;z-index: 1000;background: #fff;padding:10px 5px;border-radius: 3px;}
+.downLoadType a{display: inline-block;width:100%!important;margin:2px 0!important;}
+.downloadBtn:hover .downLoadType, .downLoadType:hover{display:block;}
 .footer .title{color: rgb(54, 54, 54);padding:15px;border-bottom:solid 3px dodgerblue;margin-top: 30px;}

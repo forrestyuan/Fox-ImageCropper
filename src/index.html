@@ -15,8 +15,18 @@
   <div class="controlBar">
     <label for="imageFile" class="btn normal-btn">选择本地图片</label>
     <input type="file" class="none" multiple accept="image/jpg,image/png,image/gif,image/jpeg" id="imageFile">
-    <span class="btn danger-btn float-right">清空画布</span>
-    <span class="btn success-btn float-right">保存裁切内容</span>
+    <span class="btn">
+      裁切宽：<span id="showCropW">0</span>
+      裁切高：<span id="showCropH">0</span>
+    </span>
+    <span class="btn danger-btn float-right" id="clearBtn">清空</span>
+    <span class="btn success-btn float-right" id="cropBtn">裁切</span>
+    <span class="btn primary-btn float-right downloadBtn" ><span>保存</span>
+      <div class="downLoadType">
+        <a class="btn normal-btn float-right" download="saveCropImage" href="alert('请先裁切后保存')" id="saveJPGBtn">保存JPG</a>
+        <a class="btn normal-btn float-right" download="saveCropImage" href="alert('请先裁切后保存')" id="savePNGBtn">保存PNG</a>
+      </div>
+    </span>
   </div>
   
   <div class="cropper_box">
