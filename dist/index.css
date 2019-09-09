@@ -1,10 +1,11 @@
 html,body{background-color: #ccc;}
+a{text-decoration: none;}
 .none{display: none;}
 .float-right{float:right;}
 .header h1{background: dodgerblue;color: #fff;text-align: center;padding: 15px;margin:0;}
 
 .controlBar{padding:15px;border:solid 3px dodgerblue;border-top: none;}
-.controlBar .btn{position: relative;display: inline-block;vertical-align: middle;margin:0 10px;text-align: center;height:30px; font-size: 14px;line-height: 30px; color:#fff;padding:3px 10px; border-radius: 3px;cursor: pointer;}
+.controlBar .btn{position: relative;display: inline-block;vertical-align: middle;margin:0 10px;text-align: center;height:30px; font-size: 14px;line-height: 25px; color:#fff;padding:3px 10px; border-radius: 3px;cursor: pointer;box-sizing: border-box;}
 .controlBar .primary-btn{background-color: dodgerblue;}
 .controlBar .primary-btn:hover{background-color:deepskyblue;}
 .controlBar .danger-btn{background-color:crimson;}
@@ -13,6 +14,11 @@ html,body{background-color: #ccc;}
 .controlBar .success-btn:hover{background-color:lightgreen;}
 .controlBar .normal-btn{background-color: #555;}
 .controlBar .normal-btn:hover{background-color:slategray;}
+
+.downloadBtn{position: relative;display: inline-block;width:100px;padding:0;}
+.downLoadType{display:none;position: absolute;left: 0;top:30px;padding:0;z-index: 1000;background: #fff;padding:10px 5px;border-radius: 3px;}
+.downLoadType a{display: inline-block;width:100%!important;margin:2px 0!important;}
+.downloadBtn:hover .downLoadType, .downLoadType:hover{display:block;}
 .footer .title{color: rgb(54, 54, 54);padding:15px;border-bottom:solid 3px dodgerblue;margin-top: 30px;}
 .imgWrapper{
   display: inline-block;
@@ -60,9 +66,9 @@ html,body{background-color: #ccc;}
 }
 ::-webkit-scrollbar{width:8px;height:8px;}
 ::-webkit-scrollbar-thumb{background-color:dimgrey;border-radius: 15px;}
-.cropper_box{min-height:500px;padding:10px;background-color: #fff;overflow: auto;margin-top: 15px;}
-.crop_wrapper{position: relative;display: inline-block;background-color:#fff;}
-.cropBox {position: absolute;left:10px;top:10px;width:100px;height:100px;border: solid 2px #ccc;margin: 0 auto;cursor: move;}
+.cropper_box{display:inline-block;max-width:100%;padding:10px;background-color:dodgerblue;overflow: auto;margin-top: 15px;box-sizing: border-box}
+.crop_wrapper{position: relative;display: inline-block;background-color:#fff;box-sizing: border-box}
+.cropBox {position: absolute;left:10px;top:10px;width:100px;height:100px;border: solid 2px #ccc;margin: 0 auto;cursor: move;box-shadow: 0 0 0 6000px rgba(0,0,0,0.4)}
 .cropBox .crop_dot {position: absolute;width: 4px;height: 4px;background-color: red;}
 .cropBox .crop_dot1 {left: -4px;top: -4px;width:10px;height: 10px;border-radius: 100%;cursor: nw-resize}
 .cropBox .crop_dot2 {width: calc(100% - 10px);top: -2px;right: 5px;border-radius: 0;cursor: n-resize;}
@@ -72,4 +78,4 @@ html,body{background-color: #ccc;}
 .cropBox .crop_dot6 {width: calc(100% - 10px);bottom: -2px;right: 5px;border-radius: 0;cursor: n-resize;}
 .cropBox .crop_dot7 {left: -4px;bottom: -4px;width:10px;height: 10px;border-radius: 100%;cursor: nesw-resize;}
 .cropBox .crop_dot8 {height: calc(100% - 10px);left: -2px;bottom: 5px;border-radius: 0;cursor: w-resize;}
-#canvas {position: relative;background-color: transparent;vertical-align: middle;}
+#canvas {position: relative;vertical-align: middle;}
