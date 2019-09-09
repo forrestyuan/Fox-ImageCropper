@@ -58,10 +58,11 @@ class Canvas{
     this.historyDrawStack.push(this.canvas.toDataURL());
   };
   //恢复绘图快照
-  restoreDarwStatus(){
+  restoreDarwStatus(callback = null){
     let img = new Image();
     img.onload = ()=>{
       this.ctx.drawImage(img,0, 0);
+      typeof callback == 'function' ? callback():false;
     }
     img.src = this.historyDrawStack.pop();
   }
@@ -218,12 +219,13 @@ let cropCanvasHandler = (e, canvasObj)=>{
   canvasObj.ctx.putImageData(myImageData, 0, 0);
 
   let PNGURL = canvasObj.canvas.toDataURL('image/png');
+  canvasObj.savePNGBtn.href=PNGURL;
   canvasObj.saveDrawStatus();
   canvasObj.setfillColor();
-  canvasObj.restoreDarwStatus();
-  let JPGURL = canvasObj.canvas.toDataURL('image/jpeg',1);
-  canvasObj.saveJPGBtn.href=JPGURL;
-  canvasObj.savePNGBtn.href=PNGURL;
+  canvasObj.restoreDarwStatus(function(){
+    let JPGURL = canvasObj.canvas.toDataURL('image/jpeg',1);
+    canvasObj.saveJPGBtn.href=JPGURL;
+  });
 }
 
 
