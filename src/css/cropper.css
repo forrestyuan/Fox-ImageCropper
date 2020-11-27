@@ -1,6 +1,7 @@
 ::-webkit-scrollbar{width:8px;height:8px;}
 ::-webkit-scrollbar-thumb{background-color:dimgrey;border-radius: 15px;}
-.cropper_box{display:inline-block;max-width:100%;padding:10px;background-color:dodgerblue;overflow: auto;margin-top: 15px;box-sizing: border-box}
+.cropper_box{display:inline-block;max-width:100%;padding:10px;background-color:dodgerblue;overflow: auto;margin-top: 15px;box-sizing: border-box;-webkit-user-select: none;user-select: none;}
+.cropper_box *{-webkit-user-select: none;user-select: none;}
 .crop_wrapper{position: relative;display: inline-block;background-color:#fff;box-sizing: border-box}
 .cropBox {position: absolute;left:10px;top:10px;width:100px;height:100px;border: solid 2px #ccc;margin: 0 auto;cursor: move;box-shadow: 0 0 0 6000px rgba(0,0,0,0.4)}
 .cropBox .crop_dot {position: absolute;width: 4px;height: 4px;background-color: red;}
