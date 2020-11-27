@@ -82,6 +82,7 @@ module.exports = {
   devServer:{
     port:3000,
     hot:true,
+    host:'0.0.0.0',
     hotOnly:true,
     contentBase:"./dist",
     progress:true,
